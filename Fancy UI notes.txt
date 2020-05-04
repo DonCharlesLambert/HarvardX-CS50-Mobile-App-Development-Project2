@@ -1,0 +1,11 @@
+Installing UI Kitten:
+npm i react-native-ui-kitten @eva-design/eva
+npm install react-native-svg
+
+Imports:
+import * as eva from '@eva-design/eva';
+import {ApplicationProvider, Layout, Button, Text} from 'react-native-ui-kitten'
+//check documentation for other components
+
+Code:
+<ApplicationProvider> must be root component
