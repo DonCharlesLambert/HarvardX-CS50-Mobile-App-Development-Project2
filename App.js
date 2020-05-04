@@ -5,6 +5,12 @@ import * as eva from '@eva-design/eva';
 import {ApplicationProvider, Layout, Button, Text, Avatar, Card } from 'react-native-ui-kitten'
 import {search} from './mockData'
 
+// Colour Theme
+// 363062
+// 4d4c7d
+// 827397
+// d8b9c3
+
 export default function App() {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
