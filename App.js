@@ -1,21 +1,17 @@
 import React from 'react';
-import { StatusBar, StyleSheet, View, SafeAreaView, FlatList } from 'react-native';
+import { StatusBar, StyleSheet, View, SafeAreaView, FlatList, Image, Text, TouchableHighlight } from 'react-native';
 import Constants from 'expo-constants'
-import * as eva from '@eva-design/eva';
-import {ApplicationProvider, Layout, Button, Text, Avatar, Card } from 'react-native-ui-kitten'
 import {search} from './mockData'
 
 // Colour Theme
-// 363062
-// 4d4c7d
+// #575b72
+// white
 // 827397
 // d8b9c3
 
 export default function App() {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
       <MovieList/>
-    </ApplicationProvider>
   );
 }
 
@@ -26,7 +22,7 @@ class MovieList extends React.Component{
       paddingTop: Constants.statusBarHeight,
       textAlign: "center",
       alignItems: "center",
-      backgroundColor: "#363062",
+      backgroundColor: "#575b72",
     },
     scroll:{
       width: "100%",
@@ -52,13 +48,13 @@ class MovieList extends React.Component{
   render(){
     this.addKeys(search.Search)
     return(
-        <Layout style={this.style.container}>
+        <View style={this.style.container}>
           <FlatList
             data={search.Search}
             renderItem={(movieObject) => this.createMovieComponents(movieObject)}
             contentContainerStyle={this.style.scroll}
             />
-        </Layout>
+        </View>
     )
   }
 }
@@ -68,11 +64,10 @@ class Movie extends React.Component{
     container:{
       width: "80%",
       aspectRatio: 4/1,
-      alignContent: "center",
-      justifyContent: "center",
-      margin: "1%",
-      backgroundColor: "#827397",
+      margin: "1.5%",
+      backgroundColor: "#69c7ad",
       borderColor: "#d8b9c3",
+      padding: 5,
     },
     view:{
       flexDirection: "row",
@@ -86,7 +81,13 @@ class Movie extends React.Component{
     },
     text:{
       fontSize: 12,
-      color: "#d8b9c3",
+      color: "white",
+    },
+    image:{
+      width: 50,
+      height: 50,
+      borderWidth: 2,
+      borderColor: "#4cabb1",
     }
   })
 
@@ -96,26 +97,17 @@ class Movie extends React.Component{
 
   render(){
     return(
-       <Card style={this.style.container}>
+       <TouchableHighlight style={this.style.container}>
          <View style={this.style.view}>
            <View style={this.style.movieImage}>
-             <Avatar size="large" source={{uri: this.props.image}}/>
+             <Image style={this.style.image} source={{uri: this.props.image}}/>
            </View>
            <View style={this.style.info}>
              <Text style={this.style.text}>{this.props.movie}</Text>
              <Text style={this.style.text}>{this.props.description}</Text>
            </View>
          </View>
-       </Card>
+       </TouchableHighlight>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
