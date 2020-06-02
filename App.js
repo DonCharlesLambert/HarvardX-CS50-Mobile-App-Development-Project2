@@ -1,7 +1,11 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StatusBar, StyleSheet, View, SafeAreaView, FlatList, Image, Text, TouchableHighlight } from 'react-native';
+import { StatusBar, StyleSheet, View, SafeAreaView, FlatList, Image, Text, TouchableHighlight } from 'react-native'
 import Constants from 'expo-constants'
-import {search} from './mockData'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MovieList from './components/movieList'
+import { searchMovies } from './scripts/movieData'
 
 // Colour Theme
 // #575b72
@@ -9,105 +13,15 @@ import {search} from './mockData'
 // 827397
 // d8b9c3
 
+const tab = createBottomTabNavigator()
 export default function App() {
   return (
-      <MovieList/>
+      <NavigationContainer>
+        <tab.Navigator>
+          <tab.Screen name="Finder" component={MovieList} initialParams={{movieData: searchMovies("Spider-Man")}}/>
+          <tab.Screen name="View"/>
+          <tab.Screen name="Settings"/>
+        </tab.Navigator>
+      </NavigationContainer>
   );
-}
-
-class MovieList extends React.Component{
-  style = StyleSheet.create({
-    container:{
-      flex: 1,
-      paddingTop: Constants.statusBarHeight,
-      textAlign: "center",
-      alignItems: "center",
-      backgroundColor: "#575b72",
-    },
-    scroll:{
-      width: "100%",
-      textAlign: "center",
-      alignItems: "center",
-    }
-  })
-
-  createMovieComponents(movieObject){
-    return(
-        <Movie
-            movie={movieObject.item.Title}
-            description={movieObject.item.Year}
-            image={movieObject.item.Poster}
-        />
-      )
-  }
-
-  addKeys(movieObjects){
-    movieObjects.map((object, i) => object.key = i.toString())
-  }
-
-  render(){
-    this.addKeys(search.Search)
-    return(
-        <View style={this.style.container}>
-          <FlatList
-            data={search.Search}
-            renderItem={(movieObject) => this.createMovieComponents(movieObject)}
-            contentContainerStyle={this.style.scroll}
-            />
-        </View>
-    )
-  }
-}
-
-class Movie extends React.Component{
-  style=StyleSheet.create({
-    container:{
-      width: "80%",
-      aspectRatio: 4/1,
-      margin: "1.5%",
-      backgroundColor: "#69c7ad",
-      borderColor: "#d8b9c3",
-      padding: 5,
-    },
-    view:{
-      flexDirection: "row",
-    },
-    info:{
-      marginLeft: "5%",
-      flex: 1,
-    },
-    movieImage:{
-      justifyContent: "center"
-    },
-    text:{
-      fontSize: 12,
-      color: "white",
-    },
-    image:{
-      width: 50,
-      height: 50,
-      borderWidth: 2,
-      borderColor: "#4cabb1",
-    }
-  })
-
-  constructor() {
-    super();
-  }
-
-  render(){
-    return(
-       <TouchableHighlight style={this.style.container}>
-         <View style={this.style.view}>
-           <View style={this.style.movieImage}>
-             <Image style={this.style.image} source={{uri: this.props.image}}/>
-           </View>
-           <View style={this.style.info}>
-             <Text style={this.style.text}>{this.props.movie}</Text>
-             <Text style={this.style.text}>{this.props.description}</Text>
-           </View>
-         </View>
-       </TouchableHighlight>
-    )
-  }
 }
