@@ -1,11 +1,12 @@
 import React from 'react';
-import { StatusBar, StyleSheet, View, SafeAreaView, FlatList, Image, Text, TouchableHighlight } from 'react-native';
+import { StatusBar, StyleSheet, View, SafeAreaView, FlatList, Image, Text, TouchableHighlight, TextInput } from 'react-native';
 import Constants from 'expo-constants'
-import Movie from './movie'
+import MovieWidget from './movieWidget'
 
 export default class MovieList extends React.Component{
   constructor(props){
     super(props)
+    this.searchFunction = this.props.route.params.searchFunction
   }
 
   style = StyleSheet.create({
@@ -18,38 +19,55 @@ export default class MovieList extends React.Component{
     },
     scroll:{
       width: "100%",
+      marginTop: Constants.statusBarHeight + 20,
       textAlign: "center",
       alignItems: "center",
+    },
+    textbox:{
+      top: Constants.statusBarHeight,
+      width: '80%',
+      height: 40,
+      backgroundColor: 'white',
+      borderRadius: 16,
+      paddingLeft: '2%',
+      zIndex: 2,
     }
   })
 
   state = {
-    movieData: "my money blue",
+    movieData: {},
+    searchText: "Spider-Man",
   }
 
   createMovieComponents(movieObject){
     return(
-        <Movie
+        <MovieWidget
             movie={movieObject.item.Title}
-            description={movieObject.item.Year}
+            year={movieObject.item.Year}
             image={movieObject.item.Poster}
+            navigation={this.props.navigation}
         />
       )
   }
 
   componentDidMount(){
-    this.getData()
+    this.getData(this.props.route.params.movieData)
   }
 
-  getData = async () => {
-    let movieData = await this.props.route.params.movieData
-    //movieData = await movieData.map((object, i) => object.key = i.toString())
-    await this.setState({movieData: movieData}, console.log(this.state.movieData))
+  getData = async (data) => {
+    let movieData = await data
+    this.setState({movieData: movieData}, console.log(this.state.movieData))
   }
 
   render(){
     return(
         <View style={this.style.container}>
+          <TextInput
+            style={this.style.textbox}
+            text={this.state.searchText}
+            onChangeText={text => this.setState({searchText: text})}
+            onEndEditing={e => this.getData(this.searchFunction(this.state.searchText))}
+          />
           <FlatList
             data={this.state.movieData}
             renderItem={(movieObject) => this.createMovieComponents(movieObject)}

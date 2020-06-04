@@ -1,73 +1,72 @@
 import React from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  View,
-  SafeAreaView,
-  FlatList,
-  Image,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 export default class Movie extends React.Component {
-  style = StyleSheet.create({
+  constructor(props) {
+    super(props);
+  }
+
+  styles = StyleSheet.create({
     container: {
-      width: '80%',
-      aspectRatio: 4 / 1,
-      margin: '1.5%',
-      backgroundColor: '#ffffff',
-      color: 'black',
-      padding: 5,
-      borderRadius: '15%',
-      alignItems: 'center',
-    },
-    view: {
-      flexDirection: 'row',
-    },
-    info: {
-      marginLeft: '5%',
+      backgroundColor: '#575b72',
       flex: 1,
     },
-    movieImage: {
-      height: '100%',
-      justifyContent: 'center',
+    poster: {
+      position: 'absolute',
+      top: '20%',
+      left: '10%',
+      height: '50%',
+      width: 150,
+      borderRadius: '15%',
+    },
+    upperBG: {
+      height: '50%',
+      backgroundColor: '#fff',
+    },
+    info: {
+      position: 'absolute',
+      top: '75%',
+      color: 'white',
+      width: '100%',
+      paddingLeft: '5%',
+      paddingRight: '5%',
       alignItems: 'center',
-      paddingLeft: '2%',
-    },
-    title: {
-      fontWeight: 'bold',
-    },
-    text: {
-      fontSize: 12,
-    },
-    image: {
-      width: 50,
-      height: 50,
-      borderRadius: '50%',
-    },
+    }
   });
 
-  constructor() {
-    super();
+  state = {
+    movieData: {},
+  };
+
+  componentDidMount() {
+    this.getData(this.props.route.params.movie);
   }
+
+  getData = async (movieTitle) => {
+    let title = await movieTitle;
+    let movieData = await this.props.route.params.getFunction(title);
+    this.setState({ movieData: movieData });
+  };
 
   render() {
     return (
-      <TouchableHighlight style={this.style.container}>
-        <View style={this.style.view}>
-          <View style={this.style.movieImage}>
-            <Image
-              style={this.style.image}
-              source={{ uri: this.props.image }}
-            />
-          </View>
-          <View style={this.style.info}>
-            <Text style={this.style.title}>{this.props.movie}</Text>
-            <Text style={this.style.text}>{this.props.description}</Text>
-          </View>
+      <View style={this.styles.container}>
+        <View style={this.styles.upperBG}>
+          <Image source={{
+            uri:
+              'https://www.avforums.com/styles/avf/editorial/block//8ed9e4b8b068397d72dda895c6bc5bc5_3x3.jpg'
+          }}
+            style={{height: '100%', width: '100%'}}
+          />
         </View>
-      </TouchableHighlight>
+        <Image
+          source={{ uri: this.state.movieData.Poster }}
+          style={this.styles.poster}
+        />
+        <View style={this.styles.info}>
+          <Text>{this.state.movieData.Plot}</Text>
+        </View>
+      </View>
     );
   }
 }
