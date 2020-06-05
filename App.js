@@ -27,7 +27,7 @@ const tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <tab.Navigator>
+      <tab.Navigator initialRouteName={"View"}>
         <tab.Screen
           name="Finder"
           component={MovieList}

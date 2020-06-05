@@ -56,7 +56,7 @@ export default class MovieList extends React.Component{
 
   getData = async (data) => {
     let movieData = await data
-    this.setState({movieData: movieData}, console.log(this.state.movieData))
+    this.setState({movieData: movieData})
   }
 
   render(){

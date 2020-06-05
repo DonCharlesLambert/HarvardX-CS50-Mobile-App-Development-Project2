@@ -4,6 +4,19 @@ search for movies included in the [Open Movie Database](http://www.omdbapi.com/)
 and view additional information about any movies they select. Check out the
 [staff solution](#staff-solution) for a working version.
 
+## My solution & Checklist
+NOT FINISHED  
+<div align=center>
+<img src="https://github.com/HarvardX-React-Native/Project2/blob/master/screenshots/ss1.jpeg?raw=true" alt="The app search screen, Spider-Man" width=30%/>
+<img src="https://github.com/HarvardX-React-Native/Project2/blob/master/screenshots/ss2.jpeg?raw=true" alt="Viewing the Spider-Man movie" width=30%/>
+<img src="https://github.com/HarvardX-React-Native/Project2/blob/master/screenshots/ss3.jpeg?raw=true" alt="The search screen again, Regular Show" width=30%/>
+</div>
+
+✘ At least one StackNavigator (used BottomTabNavigator)
+✓ A screen that allows users to search for movies
+✘ Show more than 10 results if more than 10 results exist
+✓ Additional screen that shows information about a selected movie
+
 ## Requirements
 - You may not import libraries other than the below:
   - `expo`

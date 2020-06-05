@@ -42,6 +42,7 @@ export default class MovieWidget extends React.Component {
     },
     title: {
       fontWeight: 'bold',
+      fontSize: 15,
     },
     text: {
       fontSize: 12,
@@ -81,15 +82,6 @@ export default class MovieWidget extends React.Component {
             <Text style={this.style.title}>{this.props.movie}</Text>
             <Text style={this.style.text}>{this.props.year}</Text>
             <Text style={this.style.text}>{this.props.description}</Text>
-            <View
-              style={{
-                position: 'absolute',
-                top: '70%',
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                width: '80%',
-              }}
-            />
           </View>
         </View>
       </TouchableHighlight>
