@@ -16,6 +16,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MovieList from './components/movieList';
 import Movie from './components/movie';
 import { searchMovies, getMovie } from './scripts/movieData';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Colour Theme
 // #575b72
@@ -27,12 +28,22 @@ const tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <tab.Navigator initialRouteName={"View"}>
+      <tab.Navigator
+        initialRouteName={'View'}
+        tabBarOptions={{ style: { backgroundColor: '#575b72', borderTopColor: 'transparent'} }}>
+
         <tab.Screen
-          name="Finder"
+          name="Search"
           component={MovieList}
-          initialParams={{ movieData: searchMovies('Spider-Man'), searchFunction: searchMovies }}
+          initialParams={{
+            movieData: searchMovies('Spider-Man'),
+            searchFunction: searchMovies,
+          }}
+          options={{
+            tabBarIcon: (c) => <Icon name="search" size={30} color="#fff" />,
+          }}
         />
+
         <tab.Screen
           name="View"
           component={Movie}
@@ -40,8 +51,19 @@ export default function App() {
             movie: 'Spider-Man',
             getFunction: getMovie,
           }}
+          options={{
+            tabBarIcon: (c) => (
+              <Icon name="video-camera" size={30} color="#fff" />
+            ),
+          }}
         />
-        <tab.Screen name="Settings" />
+
+        <tab.Screen
+          name="Settings"
+          options={{
+            tabBarIcon: (c) => <Icon name="sliders" size={30} color="#fff" />,
+          }}
+        />
       </tab.Navigator>
     </NavigationContainer>
   );

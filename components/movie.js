@@ -87,14 +87,12 @@ export default class Movie extends React.Component {
   };
 
   render() {
-    console.log(this.state.movieData);
     return (
       <View style={this.styles.container}>
         <View style={this.styles.upperBG}>
           <Image
             source={{
-              uri:
-                'https://www.avforums.com/styles/avf/editorial/block//8ed9e4b8b068397d72dda895c6bc5bc5_3x3.jpg',
+              uri: 'https://picsum.photos/2000',
             }}
             style={{ height: '100%', width: '100%' }}
           />
@@ -120,7 +118,11 @@ export default class Movie extends React.Component {
           <Text style={this.styles.infoText}>{this.state.movieData.Plot}</Text>
         </View>
         <View style={this.styles.watch}>
-          <TouchableHighlight style={this.styles.button}>
+          <TouchableHighlight
+            style={this.styles.button}
+            onPress={() =>
+              console.log('Now watching ' + this.state.movieData.Title)
+            }>
             <Text style={{ fontWeight: 'bold', color: 'black' }}> Watch </Text>
           </TouchableHighlight>
           <TouchableHighlight style={this.styles.button}>
