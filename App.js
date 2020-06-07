@@ -30,8 +30,9 @@ export default function App() {
     <NavigationContainer>
       <tab.Navigator
         initialRouteName={'View'}
-        tabBarOptions={{ style: { backgroundColor: '#575b72', borderTopColor: 'transparent'} }}>
-
+        tabBarOptions={{
+          style: { backgroundColor: '#353B43', borderTopColor: 'transparent' },
+        }}>
         <tab.Screen
           name="Search"
           component={MovieList}

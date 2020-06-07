@@ -6,6 +6,7 @@ import {
   Image,
   TouchableHighlight,
 } from 'react-native';
+import Header from './header'
 
 export default class Movie extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class Movie extends React.Component {
       borderRadius: '15%',
     },
     upperBG: {
-      height: '50%',
+      height: '42.5%',
       backgroundColor: '#fff',
     },
     info: {
@@ -48,7 +49,7 @@ export default class Movie extends React.Component {
       color: 'white',
     },
     watch: {
-      top: '67.5%',
+      top: '60%',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
@@ -89,6 +90,7 @@ export default class Movie extends React.Component {
   render() {
     return (
       <View style={this.styles.container}>
+        <Header/>
         <View style={this.styles.upperBG}>
           <Image
             source={{
@@ -101,7 +103,7 @@ export default class Movie extends React.Component {
           source={{ uri: this.state.movieData.Poster }}
           style={this.styles.poster}
         />
-        <View style={{ position: 'absolute', left: '52.5%', top: '52.5%' }}>
+        <View style={{ position: 'absolute', left: '52.5%', top: '55%' }}>
           <Text style={{ color: 'white', fontStyle: 'italic' }}>
             {this.state.movieData.Year}
             {'\n'}

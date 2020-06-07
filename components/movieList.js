@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar, StyleSheet, View, SafeAreaView, FlatList, Image, Text, TouchableHighlight, TextInput } from 'react-native';
 import Constants from 'expo-constants'
 import MovieWidget from './movieWidget'
+import Header from './header'
 
 export default class MovieList extends React.Component{
   constructor(props){
@@ -12,7 +13,6 @@ export default class MovieList extends React.Component{
   style = StyleSheet.create({
     container:{
       flex: 1,
-      paddingTop: Constants.statusBarHeight,
       textAlign: "center",
       alignItems: "center",
       backgroundColor: "#575b72",
@@ -24,13 +24,12 @@ export default class MovieList extends React.Component{
       alignItems: "center",
     },
     textbox:{
-      top: Constants.statusBarHeight,
       width: '80%',
       height: 40,
       backgroundColor: 'white',
       borderRadius: 16,
-      paddingLeft: '2%',
       zIndex: 2,
+      paddingLeft: '2%'
     }
   })
 
@@ -59,15 +58,22 @@ export default class MovieList extends React.Component{
     this.setState({movieData: movieData})
   }
 
+  SearchBox = () => {
+    return(
+      <TextInput
+        style={this.style.textbox}
+        text={this.state.searchText}
+        onChangeText={text => this.setState({searchText: text})}
+        onEndEditing={e => this.getData(this.searchFunction(this.state.searchText))}
+        placeholder="Search for movies..."
+      />
+    )
+  }
+
   render(){
     return(
         <View style={this.style.container}>
-          <TextInput
-            style={this.style.textbox}
-            text={this.state.searchText}
-            onChangeText={text => this.setState({searchText: text})}
-            onEndEditing={e => this.getData(this.searchFunction(this.state.searchText))}
-          />
+          <Header textbox={this.SearchBox}/>
           <FlatList
             data={this.state.movieData}
             renderItem={(movieObject) => this.createMovieComponents(movieObject)}
